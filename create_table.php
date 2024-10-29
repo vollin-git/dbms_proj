@@ -17,11 +17,15 @@ echo "<br>";
 echo " connection  successful ";
 
 //create a table in db
-$sql = "CREATE TABLE customers (
-    id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(30) NOT NULL,
-    email VARCHAR(50)
+// Creating Menu Table
+$sql="CREATE TABLE Menu (
+    Item_ID INT AUTO_INCREMENT PRIMARY KEY,
+    Item_Name VARCHAR(100) NOT NULL,
+    Quantity INT NOT NULL,
+    Price DECIMAL(10, 2) NOT NULL,
+    Description TEXT
 )";
+
 
 $result=mysqli_query($conn,$sql);
 echo"<br>";

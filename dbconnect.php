@@ -1,5 +1,5 @@
 <?php
-echo " trying to connect to db" ;
+
 
 // connecting to the database
 $servername ="localhost";
@@ -16,7 +16,5 @@ echo "<br>";
 echo " connection  successful ";
 
 
-//creating a db
-$sql = "CREATE DATABASE customers";
-mysqli_query($conn,$sql);
+
 ?>
