@@ -1,6 +1,20 @@
-<?php include 'dbconnect.php'; ?>
-
 <?php
+// Database connection
+$servername ="localhost";
+$username ="root";
+$password ="";
+$database="customers";
+
+//create a connection
+$conn = mysqli_connect($servername,$username,$password,$database); 
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+// Enable error reporting
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 // Update action
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'update') {
     $item_id = isset($_POST['item_id']) ? (int)$_POST['item_id'] : 0;
@@ -10,26 +24,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     $description = isset($_POST['description']) ? trim($_POST['description']) : '';
 
     // Validate input values
-    if ($item_id > 0 && !empty($item_name) && $quantity > 0 && $price > 0) {
+    if ($item_id > 0 && !empty($item_name) && $quantity >= 0 && $price >= 0) {
+        // Debugging output
+        echo "Updating Item ID: $item_id, Name: $item_name, Quantity: $quantity, Price: $price, Description: $description<br>";
+
         // Prepare the SQL statement
         $stmt = $conn->prepare("UPDATE Menu SET Item_Name = ?, Quantity = ?, Price = ?, Description = ? WHERE Item_ID = ?");
         
+        if (!$stmt) {
+            echo "Error preparing statement: " . $conn->error;
+            exit();
+        }
+
         // Bind parameters
         $stmt->bind_param("sidsi", $item_name, $quantity, $price, $description, $item_id);
 
         // Execute the statement
-        if ($stmt->execute()) {
-            echo "Item updated successfully.";
+        if (!$stmt->execute()) {
+            echo "Error executing statement: " . $stmt->error;
         } else {
-            echo "Error updating item: " . $stmt->error;
+            echo "Item updated successfully. Affected rows: " . $stmt->affected_rows;
         }
         $stmt->close();
     } else {
         echo "Error: Missing or invalid values for item name, quantity, price, or item ID.";
     }
-        
 }
 
 // Close the database connection
-$conn->close();
+//$conn->close();
 ?>
