@@ -37,6 +37,9 @@ if ($action === 'delete') {
             echo "Error: Item ID is missing for the delete action.";
         }
     }
+    // Redirect to the main page to avoid form resubmission issues
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit();
 
 }
 

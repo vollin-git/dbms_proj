@@ -1,11 +1,10 @@
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menu Management</title>
+    <title>order Management</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -58,11 +57,14 @@
 <body>
 
 <div class="container">
-    <h2>Menu Management</h2>
+    <h2>Order Management</h2>
 
     <!-- Form to Insert or Update Item -->
     <form method="POST" action="">
         <input type="hidden" name="item_id" id="item_id">
+        <label for="item_id">Item id:</label>
+        <input type="text" id="item_id" name="item_id" required>
+
         <label for="item_name">Item Name:</label>
         <input type="text" id="item_name" name="item_name" required>
 
